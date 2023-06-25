@@ -77,7 +77,6 @@ const deleteContact = id => dispatch => {
   httpClient
     .ApiDel(`contact/${id}`)
     .then(res => {
-      console.log(res, 'res');
       dispatch({
         type: 'DEL_CONTACT_SUCCESS',
         payload: true,
