@@ -4,13 +4,13 @@
 
 if you Run this app follow this action :
 
-## IOS
+#### IOS
 
 - ios/Pods && ios/Podfile.lock => remove that if you find error
 - cd ios && pod install --repo-update
 - npm run ios
 
-## ANDROID
+#### ANDROID
 
 - android/node_modules && android/package-lock.json => remove that if you find error
 - cd android && ./gradlew clean
