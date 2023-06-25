@@ -89,7 +89,9 @@ const Contact = props => {
   const renderRightActions = (progress, dragX, onClick) => {
     return (
       <View style={styles.delete}>
-        <Button color="red" onPress={onClick} title="DELETE" />
+        <TouchableOpacity styles={styles.btndelete} onPress={onClick}>
+          <Text style={{color: 'red', fontSize: 16}}>DELETE</Text>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -185,6 +187,9 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
     width: 80,
+  },
+  btndelete: {
+    backgroundColor: 'red',
   },
   emptylist: {
     padding: 10,

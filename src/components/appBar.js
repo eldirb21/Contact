@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  Platform,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {isvalidPhoto} from '../utils/helpers';
@@ -21,6 +22,7 @@ const AppBar = ({
   searchValue,
   iconBack,
   backStyle,
+  containerStyle,
 }) => {
   return (
     <>
@@ -28,12 +30,8 @@ const AppBar = ({
         animated
         backgroundColor={'green'}
         barStyle={'light-content'}
-        hidden={false}
-        translucent
-        networkActivityIndicatorVisible
-        showHideTransition={'none'}
       />
-      <View style={styles.content}>
+      <View style={[styles.content, containerStyle]}>
         <View style={styles.headLeft}>
           {onBack && (
             <TouchableOpacity
@@ -95,7 +93,8 @@ const AppBar = ({
 
 const styles = StyleSheet.create({
   content: {
-    // height: 55,
+    paddingTop: Platform.OS === 'ios' ? 40 : 0,
+    height: Platform.OS === 'ios' ? 100 : 65,
     backgroundColor: 'green',
     justifyContent: 'space-between',
     paddingHorizontal: 15,
@@ -140,6 +139,7 @@ const styles = StyleSheet.create({
     paddingBottom: 4,
   },
   searchContent: {
+    top: Platform.OS === 'ios' ? 50 : 0,
     position: 'absolute',
     left: 14,
     right: '20%',

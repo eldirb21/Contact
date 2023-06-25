@@ -29,6 +29,7 @@ const ModalForm = ({
         <KeyboardAvoidingView behavior={'padding'} style={styles.avoiding}>
           <View style={styles.card}>
             <AppBar
+              containerStyle={{paddingTop: 0, height: 55}}
               iconBack="close"
               backStyle={styles.back}
               title={'New Contact'}
