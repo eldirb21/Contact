@@ -147,8 +147,7 @@ const Contact = props => {
         {...props}
       />
       <Spinner
-        // visible={isRefreshing ? false : props.isLoading}
-        visible={true}
+        visible={isRefreshing ? false : props.isLoading}
         message={'Please wait...'}
       />
     </View>
