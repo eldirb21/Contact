@@ -1,24 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
-import {Linkings, isvalidPhoto} from '../../utils/helpers';
+import {isvalidPhoto} from '../../utils/helpers';
 import AppBar from '../../components/appBar';
-import ItemIconContact from '../../components/itemIconContact';
 import {connect} from 'react-redux';
 import Spinner from '../../components/spinner';
 import FormContact from '../../components/FormContact';
+import colors from '../../utils/colors';
 
-const RenderInfo = ({lable, value}) => {
-  return (
-    <View style={styles.info}>
-      <Text style={styles.infolable}>{lable}</Text>
-      <Text>: </Text>
-      <Text style={styles.infovalue}>{value}</Text>
-    </View>
-  );
-};
 const ContactDetail = props => {
   let {editContact, reseteditContact, getContact, data} = props.route.params;
   let dataItem = Object.assign(
@@ -52,6 +42,11 @@ const ContactDetail = props => {
     }
   }, [props.updateSuccess, props.isLoading]);
 
+  let InitialName = `${Item.firstName} ${Item.lastName}`
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase())
+    .join('');
+
   return (
     <View style={styles.container}>
       <AppBar
@@ -72,7 +67,7 @@ const ContactDetail = props => {
 
           <View>
             <View style={[styles.iconAvatar, styles.photo]}>
-              <Ionicons name="ios-person-sharp" size={100} color={'green'} />
+              <Text style={styles.initialName}>{InitialName}</Text>
             </View>
 
             <Image
@@ -82,27 +77,13 @@ const ContactDetail = props => {
             />
           </View>
         </View>
-
         <Text style={styles.userName}>
           {Item.firstName + ' ' + Item.lastName}
         </Text>
-
-        {!data?.isDevice && (
-          <ItemIconContact
-            onCall={() => Linkings('call', '08xxxxxxxxx')}
-            onMessage={() => Linkings('message', '08xxxxxxxx', '')}
-            onEmail={() => Linkings('email', 'sample.mail@gmail.com', '')}
-            iconStyle={styles.iconContact}
-          />
-        )}
-      </View>
-      <View>
-        <RenderInfo
-          lable={'Age'}
-          value={`${Item.age ? Item.age + ' ' + 'year' : '-'} `}
-        />
-        <RenderInfo lable={'Email'} value={Item.email} />
-        <RenderInfo lable={'Phone'} value={Item.phone} />
+        <View style={styles.info}>
+          <Text style={styles.infolable}>{'Age'}</Text>
+          <Text style={styles.infovalue}>{Item.age} year</Text>
+        </View>
       </View>
 
       <FormContact
@@ -129,6 +110,7 @@ const styles = StyleSheet.create({
   cardImage: {
     width: '100%',
     alignItems: 'center',
+    marginVertical: 20,
   },
   iconContact: {
     marginHorizontal: 6,
@@ -148,34 +130,35 @@ const styles = StyleSheet.create({
     marginTop: 6,
   },
   photo: {
-    height: 130,
-    width: 130,
+    height: 90,
+    width: 90,
     borderRadius: 100,
     borderWidth: 2,
-    borderColor: 'green',
+    borderColor: colors.LD.background,
   },
   iconAvatar: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingLeft: 4,
-    paddingBottom: 5,
+    backgroundColor: colors.LD.background,
   },
   info: {
-    paddingVertical: 15,
-    marginHorizontal: 15,
-    borderBottomWidth: 1,
-    borderColor: '#DBDBDB',
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 2,
   },
   infolable: {
-    width: '16%',
-    fontSize: 14,
-    fontWeight: '600',
+    fontSize: 12,
+    fontWeight: '500',
+    marginRight: 10,
   },
   infovalue: {
-    fontSize: 14,
-    fontWeight: '400',
+    fontSize: 12,
+    fontWeight: '500',
+  },
+  initialName: {
+    color: colors.LD.white,
+    fontSize: 20,
+    fontWeight: '600',
   },
 });
 

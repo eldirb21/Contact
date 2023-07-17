@@ -37,8 +37,10 @@ Notes : You cannot test all folders/all files, if you want to know which folders
 
 <p align="center">
 
-<img src="ContactAppScreen/list-contact.png" width="230"  title="List">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="ContactAppScreen/detail-contact.png" width="230" title="detail">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="ContactAppScreen/add-contact.png" width="230" title="Add or Edit">
+<img src="ContactAppScreen/list.png" width="230"  title="List">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="ContactAppScreen/list-with-search.png" width="230" title="detail">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="ContactAppScreen/item-detail.png" width="230" title="Add or Edit">
+<img src="ContactAppScreen/item-edit.png" width="230" title="Add or Edit">
+<img src="ContactAppScreen/item-add.png" width="230" title="Add or Edit">
 
 </p>

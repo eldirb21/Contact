@@ -1,13 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState} from 'react';
-import {
-  View,
-  FlatList,
-  Button,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import {View, FlatList, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {Linkings} from '../../utils/helpers';
 import AppBar from '../../components/appBar';
 import CardContact from '../../components/cardContact';
@@ -23,7 +16,7 @@ import {
   reseteditContact,
 } from '../../redux/actions/contact.actions';
 import {Swipeable} from 'react-native-gesture-handler';
-import {CommonActions, useIsFocused} from '@react-navigation/native';
+import {useIsFocused} from '@react-navigation/native';
 import Spinner from '../../components/spinner';
 import Floating from '../../components/floating';
 import FormContact from '../../components/FormContact';
@@ -140,14 +133,14 @@ const Contact = props => {
         onChangeSearch={onSearchText}
         searchValue={search}
         visibleSearch={showSearch}
-        onProfile={() => {
-          props.navigation.navigate('ContactDetail', {
-            data: {
-              isDevice: true,
-              ...{firstName: 'My', lastName: 'Device', age: ''},
-            },
-          });
-        }}
+        // onProfile={() => {
+        //   props.navigation.navigate('ContactDetail', {
+        //     data: {
+        //       isDevice: true,
+        //       ...{firstName: 'My', lastName: 'Device', age: ''},
+        //     },
+        //   });
+        // }}
       />
 
       <FlatList
@@ -158,6 +151,7 @@ const Contact = props => {
         data={Items}
         ListEmptyComponent={EmptyListMessage}
         renderItem={v => {
+          console.log(v);
           return renderItem(v, () => {
             onDeleteItem(v);
           });
