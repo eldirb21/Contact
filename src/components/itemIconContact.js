@@ -1,6 +1,8 @@
 import React from 'react';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+
 import Feather from 'react-native-vector-icons/Feather';
 const ItemIconContact = ({onCall, onMessage, onEmail, iconStyle}) => {
   return (
@@ -10,7 +12,7 @@ const ItemIconContact = ({onCall, onMessage, onEmail, iconStyle}) => {
           onPress={onCall}
           activeOpacity={0.9}
           style={[styles.btnAction, iconStyle]}>
-          <Feather name="phone-call" color={'#000'} size={18} />
+          <Feather name="edit-2" color={'#000'} size={18} />
         </TouchableOpacity>
       )}
       {onMessage && (
@@ -18,11 +20,7 @@ const ItemIconContact = ({onCall, onMessage, onEmail, iconStyle}) => {
           onPress={onMessage}
           activeOpacity={0.9}
           style={[styles.btnAction, iconStyle]}>
-          <Ionicons
-            name="chatbubble-ellipses-outline"
-            color={'#000'}
-            size={18}
-          />
+          <AntDesign name="delete" color={'#000'} size={18} />
         </TouchableOpacity>
       )}
       {onEmail && (
@@ -43,8 +41,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   btnAction: {
-    paddingVertical: 20,
-    paddingHorizontal: 4,
+    padding: 8,
+    margin: 1,
+    borderRadius: 100,
   },
 });
 

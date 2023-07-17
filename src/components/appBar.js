@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {isvalidPhoto} from '../utils/helpers';
+import colors from '../utils/colors';
 
 const AppBar = ({
   onProfile,
@@ -39,7 +40,7 @@ const AppBar = ({
               style={[styles.backbtn, backStyle]}>
               <Ionicons
                 name={iconBack || 'chevron-back'}
-                color={'#FFF'}
+                color={colors.LD.white}
                 size={25}
               />
             </TouchableOpacity>
@@ -48,14 +49,18 @@ const AppBar = ({
         </View>
         <View style={styles.headRight}>
           {onSearch && !visibleSearch && (
-            <TouchableOpacity onPress={onSearch} style={styles.search}>
-              <Ionicons name="search" color={'#FFF'} size={25} />
+            <TouchableOpacity onPress={onSearch}>
+              <Ionicons name="search" color={colors.LD.white} size={25} />
             </TouchableOpacity>
           )}
           {onProfile && (
-            <TouchableOpacity onPress={onProfile}>
+            <TouchableOpacity style={styles.onProfile} onPress={onProfile}>
               <View style={[styles.iconAvatar, styles.photo]}>
-                <Ionicons name="ios-person-sharp" size={25} color={'#FFF'} />
+                <Ionicons
+                  name="ios-person-sharp"
+                  size={25}
+                  color={colors.LD.white}
+                />
               </View>
 
               <Image
@@ -67,7 +72,11 @@ const AppBar = ({
           )}
         </View>
         {visibleSearch && (
-          <View style={styles.searchContent}>
+          <View
+            style={[
+              styles.searchContent,
+              !onProfile && styles.fullSearchField,
+            ]}>
             <View style={styles.iconSearch}>
               <Ionicons name="search" size={18} color={'grey'} />
               <TextInput
@@ -95,23 +104,23 @@ const styles = StyleSheet.create({
   content: {
     paddingTop: Platform.OS === 'ios' ? 40 : 0,
     height: Platform.OS === 'ios' ? 100 : 65,
-    backgroundColor: 'green',
+    backgroundColor: colors.LD.background,
     justifyContent: 'space-between',
     paddingHorizontal: 15,
     flexDirection: 'row',
     alignItems: 'center',
   },
   headTitle: {
-    color: '#FFF',
-    fontSize: 16,
+    color: colors.LD.white,
+    fontSize: 18,
+    fontWeight: '500',
   },
   headRight: {
     flexDirection: 'row',
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
-  search: {
-    marginRight: 25,
-  },
+
   headLeft: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -129,7 +138,7 @@ const styles = StyleSheet.create({
     width: 45,
     borderRadius: 100,
     borderWidth: 2,
-    borderColor: '#FFF',
+    borderColor: colors.LD.white,
     zIndex: 9999,
   },
   iconAvatar: {
@@ -143,7 +152,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 14,
     right: '20%',
-    backgroundColor: '#FFF',
+    backgroundColor: colors.LD.white,
     borderRadius: 50,
     borderWidth: 1,
     flexDirection: 'row',
@@ -165,6 +174,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingLeft: 10,
+  },
+  onProfile: {
+    marginLeft: 15,
+  },
+  fullSearchField: {
+    right: '5%',
   },
 });
 

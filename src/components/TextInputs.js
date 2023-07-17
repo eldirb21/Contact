@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, TextInput, Text} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import colors from '../utils/colors';
 
 const TextInputs = ({
   isError = false,
@@ -10,7 +11,7 @@ const TextInputs = ({
   ...props
 }) => {
   let styled = {
-    borderColor: isError ? 'red' : 'green',
+    borderColor: isError ? colors.LD.red : colors.LD.background,
     ...styles.content,
   };
   return (
@@ -28,7 +29,7 @@ const TextInputs = ({
             <Ionicons
               name="information-circle-outline"
               size={25}
-              color={'red'}
+              color={colors.LD.red}
             />
           </View>
         )}
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
   textInput: {
     flex: 1,
     height: '100%',
-    backgroundColor: '#FFF',
+    backgroundColor: colors.LD.white,
     borderRadius: 15,
     paddingHorizontal: 10,
   },
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   errorText: {
-    color: 'red',
+    color: colors.LD.red,
     fontSize: 12,
     fontWeight: '400',
   },

@@ -1,10 +1,14 @@
 import React from 'react';
 import {View, StyleSheet, TouchableOpacity, Text, Image} from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import ItemIconContact from './itemIconContact';
 import {isvalidPhoto} from '../utils/helpers';
+import colors from '../utils/colors';
 
 const CardContact = ({onDetail, onCall, onMessage, name, phone, photo}) => {
+  let InitialName = name
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase())
+    .join('');
   return (
     <View style={styles.card}>
       <TouchableOpacity
@@ -14,7 +18,7 @@ const CardContact = ({onDetail, onCall, onMessage, name, phone, photo}) => {
         <View style={styles.rows}>
           <View>
             <View style={[styles.iconAvatar, styles.photo]}>
-              <Ionicons name="ios-person-sharp" size={44} color={'green'} />
+              <Text style={styles.initialName}>{InitialName}</Text>
             </View>
 
             <Image
@@ -39,13 +43,13 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFF',
+    backgroundColor: colors.LD.white,
     marginHorizontal: 15,
     marginVertical: 5,
     padding: 8,
     borderRadius: 10,
 
-    shadowColor: '#000',
+    shadowColor: colors.LD.black,
     shadowOffset: {
       width: 0.5,
       height: 0.2,
@@ -70,7 +74,7 @@ const styles = StyleSheet.create({
   name: {
     fontWeight: '600',
     fontSize: 16,
-    color: '#000',
+    color: colors.LD.black,
     textTransform: 'capitalize',
     textAlign: 'left',
   },
@@ -78,20 +82,24 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontWeight: '500',
     fontSize: 14,
-    color: '#000',
+    color: colors.LD.black,
   },
   photo: {
-    height: 60,
-    width: 60,
+    height: 45,
+    width: 45,
     borderRadius: 100,
     borderWidth: 2,
-    borderColor: 'green',
+    borderColor: colors.LD.background,
   },
   iconAvatar: {
     justifyContent: 'center',
+    backgroundColor: colors.LD.background,
     alignItems: 'center',
-    paddingLeft: 2,
-    paddingBottom: 4,
+  },
+  initialName: {
+    color: colors.LD.white,
+    fontSize: 16,
+    fontWeight: '600',
   },
 });
 

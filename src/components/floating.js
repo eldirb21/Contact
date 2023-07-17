@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
+import colors from '../utils/colors';
 
 const Floating = ({onPress, ...props}) => {
   return (
@@ -10,7 +11,7 @@ const Floating = ({onPress, ...props}) => {
         style={styles.floating}
         onPress={onPress}
         {...props}>
-        <Feather name="plus" size={30} color={'#FFF'} />
+        <Feather name="plus" size={30} color={colors.LD.white} />
       </TouchableOpacity>
     </View>
   );
@@ -21,18 +22,18 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 15,
     bottom: 15,
-    backgroundColor: 'green',
+    backgroundColor: colors.LD.background,
     borderRadius: 100,
     padding: 1,
   },
   floating: {
-    backgroundColor: 'green',
+    backgroundColor: colors.LD.background,
     borderRadius: 100,
     borderWidth: 1,
-    borderColor: '#FFFF',
+    borderColor: colors.LD.white,
     padding: 15,
 
-    shadowColor: '#000',
+    shadowColor: colors.LD.black,
     shadowOffset: {
       width: 10,
       height: 10,
