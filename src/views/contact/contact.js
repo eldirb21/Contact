@@ -15,7 +15,6 @@ import {
   resetdeleteContact,
   reseteditContact,
 } from '../../redux/actions/contact.actions';
-import {Swipeable} from 'react-native-gesture-handler';
 import {useIsFocused} from '@react-navigation/native';
 import Spinner from '../../components/spinner';
 import Floating from '../../components/floating';
@@ -27,7 +26,8 @@ const Contact = props => {
   const [search, setsearch] = useState('');
   const [showSearch, setshowSearch] = useState(false);
   const [isRefreshing, setisRefreshing] = useState(false);
-  const [ShowAdd, setShowAdd] = useState(false);
+  const [ShowForm, setShowForm] = useState(false);
+  const [SelectItem, setSelectItem] = useState({});
 
   useEffect(() => {
     if (focused) {
@@ -36,14 +36,17 @@ const Contact = props => {
   }, [focused]);
 
   useEffect(() => {
-    setItems(props?.contacts);
-    setisRefreshing(false);
-    props.resetdeleteContact();
+    if (props?.contacts) {
+      setItems(props?.contacts);
+      setisRefreshing(false);
+    }
+    if (props.isLoading) {
+      // props.resetdeleteContact();
+    }
   }, [props?.contacts, props.isLoading]);
-
   useEffect(() => {
     if (props?.updateSuccess) {
-      setShowAdd(false);
+      setShowForm(false);
       props.resetaddContact();
       props.getContact();
     }
@@ -71,56 +74,44 @@ const Contact = props => {
     setisRefreshing(true);
     props.getContact();
   };
-  const onDeleteItem = ({item}) => {
-    props.deleteContact(item.id);
-  };
 
   const onAddDataItem = datas => {
     props.addContact(datas);
+    setSelectItem({});
   };
 
-  const renderRightActions = (progress, dragX, onClick) => {
-    return (
-      <View style={styles.delete}>
-        <TouchableOpacity styles={styles.btndelete} onPress={onClick}>
-          <Text style={{color: 'red', fontSize: 16}}>DELETE</Text>
-        </TouchableOpacity>
-      </View>
-    );
+  const onShowForm = item => {
+    if (item) {
+      setSelectItem(item);
+    }
+    setShowForm(!ShowForm);
   };
+
   const EmptyListMessage = () => (
     <TouchableOpacity activeOpacity={0.9} onPress={() => props.getContact()}>
       <Text style={styles.emptylist}>No Data Found</Text>
     </TouchableOpacity>
   );
 
-  const renderItem = ({item, index}, onClick) => {
+  const renderItem = ({item, index}) => {
     return (
-      <Swipeable
-        renderRightActions={(progress, dragX) =>
-          renderRightActions(progress, dragX, onClick)
-        }
-        // onSwipeableOpen={() => {
-        // }}
-        // // ref={ref => (row[index] = ref)}
-        rightOpenValue={-100}>
-        <CardContact
-          key={index}
-          name={item.firstName + ' ' + item.lastName}
-          photo={item.photo}
-          onCall={() => Linkings('call', '08xxxxxxxxx')}
-          onDetail={() => {
-            props.navigation.navigate('ContactDetail', {
-              data: item,
-              ...props,
-            });
-          }}
-          onMessage={() => Linkings('message', '08xxxxxxxxx')}
-        />
-      </Swipeable>
+      <CardContact
+        key={index}
+        name={item.firstName + ' ' + item.lastName}
+        photo={item.photo}
+        onCall={() => onShowForm(item)}
+        onDetail={() => {
+          props.navigation.navigate('ContactDetail', {
+            data: item,
+            ...props,
+          });
+        }}
+        onMessage={() => Linkings('message', '08xxxxxxxxx')}
+      />
     );
   };
 
+  console.log(props.isLoading);
   return (
     <View style={{flex: 1}}>
       <AppBar
@@ -133,43 +124,32 @@ const Contact = props => {
         onChangeSearch={onSearchText}
         searchValue={search}
         visibleSearch={showSearch}
-        // onProfile={() => {
-        //   props.navigation.navigate('ContactDetail', {
-        //     data: {
-        //       isDevice: true,
-        //       ...{firstName: 'My', lastName: 'Device', age: ''},
-        //     },
-        //   });
-        // }}
       />
 
       <FlatList
         keyExtractor={(item, index) => index.toString()}
         onRefresh={onRefresh}
-        refreshing={props.isLoading}
+        refreshing={isRefreshing}
         indicatorStyle="white"
         data={Items}
         ListEmptyComponent={EmptyListMessage}
-        renderItem={v => {
-          console.log(v);
-          return renderItem(v, () => {
-            onDeleteItem(v);
-          });
-        }}
-      />
-      <Spinner
-        visible={isRefreshing ? false : props.isLoading}
-        message={'Please wait...'}
+        renderItem={renderItem}
       />
 
-      <Floating onPress={() => setShowAdd(!ShowAdd)} />
+      <Floating onPress={onShowForm} />
 
       <FormContact
         isAddItem
-        visible={ShowAdd}
-        onBack={() => setShowAdd(!ShowAdd)}
+        item={SelectItem}
+        visible={ShowForm}
+        onBack={() => setShowForm(!ShowForm)}
         onSubmit={onAddDataItem}
         {...props}
+      />
+      <Spinner
+        // visible={isRefreshing ? false : props.isLoading}
+        visible={true}
+        message={'Please wait...'}
       />
     </View>
   );

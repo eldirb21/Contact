@@ -11,6 +11,7 @@ const FormContact = ({
   onSubmit,
   image = '',
   isAddItem,
+  item = null,
   ...props
 }) => {
   const [datas, setdatas] = useState({
@@ -25,7 +26,10 @@ const FormContact = ({
     if (!isAddItem) {
       setdatas(props.route.params.data);
     }
-  }, [isAddItem]);
+    if (item) {
+      setdatas(item);
+    }
+  }, [isAddItem, item]);
 
   const submit = () => {
     const {age = 0, firstName = '', lastName = '', photo = ''} = datas;
@@ -52,8 +56,6 @@ const FormContact = ({
     }
   };
   const cancel = () => {
-    const {age = 0, firstName = '', lastName = '', photo = 'string'} = datas;
-    let data = {age, firstName, lastName, photo};
     setdatas({});
     seterrors({});
     onBack();

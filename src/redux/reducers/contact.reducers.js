@@ -8,32 +8,44 @@ const initialState = {
 export default function contactReducer(state = initialState, actions) {
   switch (actions.type) {
     case 'GET_CONTACT_LOAD':
-      return {...state, isLoading: true};
+      return {...state, isLoading: actions.loading};
     case 'GET_CONTACT_SUCCESS':
-      return {...state, isLoading: false, contacts: actions.payload};
+      return {...state, isLoading: actions.loading, contacts: actions.payload};
     case 'GET_CONTACT_FAILED':
-      return {...state, isLoading: false, errors: actions.payload};
+      return {...state, isLoading: actions.loading, errors: actions.payload};
 
     case 'ADD_CONTACT_LOAD':
-      return {...state, isLoading: true};
+      return {...state, isLoading: actions.loading};
     case 'ADD_CONTACT_SUCCESS':
-      return {...state, isLoading: false, updateSuccess: actions.payload};
+      return {
+        ...state,
+        isLoading: actions.loading,
+        updateSuccess: actions.payload,
+      };
     case 'ADD_CONTACT_FAILED':
-      return {...state, isLoading: false, errors: actions.payload};
+      return {...state, isLoading: actions.loading, errors: actions.payload};
 
     case 'UPDATE_CONTACT_LOAD':
-      return {...state, isLoading: true};
+      return {...state, isLoading: actions.loading};
     case 'UPDATE_CONTACT_SUCCESS':
-      return {...state, isLoading: false, updateSuccess: actions.payload};
+      return {
+        ...state,
+        isLoading: actions.loading,
+        updateSuccess: actions.payload,
+      };
     case 'UPDATE_CONTACT_FAILED':
-      return {...state, isLoading: false, errors: actions.payload};
+      return {...state, isLoading: actions.loading, errors: actions.payload};
 
     case 'DEL_CONTACT_LOAD':
-      return {...state, isLoading: true};
+      return {...state, isLoading: actions.loading};
     case 'DEL_CONTACT_SUCCESS':
-      return {...state, isLoading: false, updateSuccess: actions.payload};
+      return {
+        ...state,
+        isLoading: actions.loading,
+        updateSuccess: actions.payload,
+      };
     case 'DEL_CONTACT_FAILED':
-      return {...state, isLoading: false, errors: actions.payload};
+      return {...state, isLoading: actions.loading, errors: actions.payload};
 
     default:
       return state;
