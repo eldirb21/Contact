@@ -14,7 +14,12 @@ const ModalForm = ({
   submit = 'Submit',
 }) => {
   return (
-    <Modal visible={visible} avoidKeyboard transparent statusBarTranslucent>
+    <Modal
+      visible={visible}
+      avoidKeyboard
+      onRequestClose={onBack}
+      transparent
+      statusBarTranslucent>
       <View style={styles.overlay}>
         <KeyboardAvoidingView behavior={'padding'} style={styles.avoiding}>
           <View style={styles.card}>
